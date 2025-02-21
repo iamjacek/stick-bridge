@@ -9,11 +9,13 @@ import {
   walkingSpeed,
   transitioningSpeed,
   fallingSpeed,
+  scoreElement,
+  restartButton,
 } from "./state.js";
 
 export function resetGame() {
   // Reset game state
-  phase = "waiting";
+  state.phase = "waiting";
   state.lastTimestamp = undefined;
 
   // The first platform is always the same
@@ -36,11 +38,11 @@ export function resetGame() {
   ];
 
   //Score
-  score = 0;
+  state.score = 0;
 
   // Reset UI
   restartButton.style.display = "none"; // Hide reset button
-  scoreElement.innerText = score; // Reset score display
+  scoreElement.innerText = state.score; // Reset score display
 
   draw();
 }
@@ -150,8 +152,8 @@ export function animate(timestamp) {
 
         const nextPlatform = thePlatformTheStickHits();
         if (nextPlatform) {
-          score++;
-          scoreElement.innerText = score;
+          state.score++;
+          scoreElement.innerText = state.score;
 
           generatePlatform();
         }
@@ -170,7 +172,7 @@ export function animate(timestamp) {
         const maxHeroX = nextPlatform.x + nextPlatform.w - 30;
         if (state.heroX > maxHeroX) {
           state.heroX = maxHeroX;
-          phase = "transitioning";
+          state.phase = "transitioning";
         }
       } else {
         // If the hero won't reach another platform then limit its position at the end of the pole
@@ -178,7 +180,7 @@ export function animate(timestamp) {
           sticks[sticks.length - 1].x + sticks[sticks.length - 1].length;
         if (state.heroX > maxHeroX) {
           state.heroX = maxHeroX;
-          phase = "falling";
+          state.phase = "falling";
         }
       }
 
@@ -194,7 +196,7 @@ export function animate(timestamp) {
           length: 0,
           rotation: 0,
         });
-        phase = "waiting";
+        state.phase = "waiting";
       }
 
       break;

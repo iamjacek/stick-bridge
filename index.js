@@ -1,20 +1,7 @@
-import {
-  state,
-  canvasHeight,
-  canvasWidth,
-  platformHeight,
-  ctx,
-  stretchingSpeed,
-  turningSpeed,
-  walkingSpeed,
-  transitioningSpeed,
-  fallingSpeed,
-} from "./js/state.js";
+import { state, scoreElement, restartButton } from "./js/state.js";
 import { resetGame, animate } from "./js/functions.js";
 
-// Further UI elements
-const scoreElement = document.getElementById("score");
-const restartButton = document.getElementById("restart");
+resetGame();
 
 window.addEventListener("mousedown", function () {
   if (state.phase == "waiting") {
