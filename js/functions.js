@@ -14,7 +14,7 @@ import {
   maximumWidth,
   minimumWidth,
   maximumGap,
-  minimumGap
+  minimumGap,
 } from "./state.js";
 
 export function resetGame() {
@@ -52,8 +52,6 @@ export function resetGame() {
 }
 
 export function generatePlatform() {
-  
-
   // X coordinate of the right edge of the furthest platform
   const lastPlatform = state.platforms[state.platforms.length - 1];
   let furthestX = lastPlatform.x + lastPlatform.w;
@@ -142,11 +140,13 @@ export function animate(timestamp) {
     case "waiting":
       return; // Stop the loop
     case "stretching": {
-      state.sticks[state.sticks.length - 1].length += timePassed / stretchingSpeed;
+      state.sticks[state.sticks.length - 1].length +=
+        timePassed / stretchingSpeed;
       break;
     }
     case "turning": {
-      state.sticks[state.sticks.length - 1].rotation += timePassed / turningSpeed;
+      state.sticks[state.sticks.length - 1].rotation +=
+        timePassed / turningSpeed;
 
       if (state.sticks[state.sticks.length - 1].rotation >= 90) {
         state.sticks[state.sticks.length - 1].rotation = 90;
@@ -178,7 +178,8 @@ export function animate(timestamp) {
       } else {
         // If the hero won't reach another platform then limit its position at the end of the pole
         const maxHeroX =
-          state.sticks[state.sticks.length - 1].x + state.sticks[state.sticks.length - 1].length;
+          state.sticks[state.sticks.length - 1].x +
+          state.sticks[state.sticks.length - 1].length;
         if (state.heroX > maxHeroX) {
           state.heroX = maxHeroX;
           state.phase = "falling";
@@ -205,11 +206,12 @@ export function animate(timestamp) {
     case "falling": {
       state.heroY += timePassed / fallingSpeed;
 
-      if ([state.sticks.length - 1].rotation < 180) {
-        state.sticks[state.sticks.length - 1].rotation += timePassed / turningSpeed;
+      if (state.sticks[state.sticks.length - 1].rotation < 180) {
+        state.sticks[state.sticks.length - 1].rotation +=
+          timePassed / turningSpeed;
       }
-
-      const maxHeroY = platformHeight + 100;
+      const maxHeroY =
+        platformHeight + 100 + (window.innerHeight - canvasHeight) / 2;
       if (state.heroY > maxHeroY) {
         restartButton.style.display = "block";
         return;

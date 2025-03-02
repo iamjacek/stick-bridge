@@ -33,7 +33,7 @@ export const stretchingSpeed = 4; // Milliseconds it takes to draw a pixel
 export const turningSpeed = 4; // Milliseconds it takes to turn a degree
 export const walkingSpeed = 4;
 export const transitioningSpeed = 2;
-export const fallingSpeed = 2;
+export const fallingSpeed = 3;
 
 export const restartButton = document.getElementById("restart");
 export const scoreElement = document.getElementById("score");
