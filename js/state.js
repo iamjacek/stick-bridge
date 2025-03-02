@@ -14,15 +14,21 @@ export const state = {
 };
 
 // Configuration
-
 const canvas = document.getElementById("game");
-// Getting the drawing context
 export const ctx = canvas.getContext("2d");
+export const canvasWidth = window.innerWidth;
+export const canvasHeight = window.innerHeight;
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
 
-export const canvasWidth = 375;
-export const canvasHeight = 375;
-export const platformHeight = 100;
+//platform sizing
+export const minimumGap = 40;
+export const maximumGap = 200;
+export const minimumWidth = 20;
+export const maximumWidth = 100;
+export const platformHeight = 200;
 
+// speed settings
 export const stretchingSpeed = 4; // Milliseconds it takes to draw a pixel
 export const turningSpeed = 4; // Milliseconds it takes to turn a degree
 export const walkingSpeed = 4;

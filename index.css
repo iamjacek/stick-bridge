@@ -1,6 +1,7 @@
 html,
 body {
   height: 100%;
+  margin: 0;
 }
 
 body,
@@ -8,6 +9,7 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .container {

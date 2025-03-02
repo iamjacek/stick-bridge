@@ -11,6 +11,10 @@ import {
   fallingSpeed,
   scoreElement,
   restartButton,
+  maximumWidth,
+  minimumWidth,
+  maximumGap,
+  minimumGap
 } from "./state.js";
 
 export function resetGame() {
@@ -33,7 +37,7 @@ export function resetGame() {
   state.sceneOffset = 0;
 
   // There's always a stick, even if it appears to be invisible (length: 0)
-  sticks = [
+  state.sticks = [
     { x: state.platforms[0].x + state.platforms[0].w, length: 0, rotation: 0 },
   ];
 
@@ -48,10 +52,7 @@ export function resetGame() {
 }
 
 export function generatePlatform() {
-  const minimumGap = 40;
-  const maximumGap = 200;
-  const minimumWidth = 20;
-  const maximumWidth = 100;
+  
 
   // X coordinate of the right edge of the furthest platform
   const lastPlatform = state.platforms[state.platforms.length - 1];
@@ -66,7 +67,7 @@ export function generatePlatform() {
 
   state.platforms.push({ x, w });
 }
-let sticks = [{ x: 100, length: 50, rotation: 60 }];
+
 // DRAW
 export function draw() {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -108,7 +109,7 @@ export function drawHero() {
 }
 
 export function drawSticks() {
-  sticks.forEach((stick) => {
+  state.sticks.forEach((stick) => {
     ctx.save();
 
     // Move the anchor point to the start of the stick and rotate
@@ -141,14 +142,14 @@ export function animate(timestamp) {
     case "waiting":
       return; // Stop the loop
     case "stretching": {
-      sticks[sticks.length - 1].length += timePassed / stretchingSpeed;
+      state.sticks[state.sticks.length - 1].length += timePassed / stretchingSpeed;
       break;
     }
     case "turning": {
-      sticks[sticks.length - 1].rotation += timePassed / turningSpeed;
+      state.sticks[state.sticks.length - 1].rotation += timePassed / turningSpeed;
 
-      if (sticks[sticks.length - 1].rotation >= 90) {
-        sticks[sticks.length - 1].rotation = 90;
+      if (state.sticks[state.sticks.length - 1].rotation >= 90) {
+        state.sticks[state.sticks.length - 1].rotation = 90;
 
         const nextPlatform = thePlatformTheStickHits();
         if (nextPlatform) {
@@ -177,7 +178,7 @@ export function animate(timestamp) {
       } else {
         // If the hero won't reach another platform then limit its position at the end of the pole
         const maxHeroX =
-          sticks[sticks.length - 1].x + sticks[sticks.length - 1].length;
+          state.sticks[state.sticks.length - 1].x + state.sticks[state.sticks.length - 1].length;
         if (state.heroX > maxHeroX) {
           state.heroX = maxHeroX;
           state.phase = "falling";
@@ -191,7 +192,7 @@ export function animate(timestamp) {
 
       const nextPlatform = thePlatformTheStickHits();
       if (nextPlatform.x + nextPlatform.w - state.sceneOffset < 100) {
-        sticks.push({
+        state.sticks.push({
           x: nextPlatform.x + nextPlatform.w,
           length: 0,
           rotation: 0,
@@ -204,8 +205,8 @@ export function animate(timestamp) {
     case "falling": {
       state.heroY += timePassed / fallingSpeed;
 
-      if (sticks[sticks.length - 1].rotation < 180) {
-        sticks[sticks.length - 1].rotation += timePassed / turningSpeed;
+      if ([state.sticks.length - 1].rotation < 180) {
+        state.sticks[state.sticks.length - 1].rotation += timePassed / turningSpeed;
       }
 
       const maxHeroY = platformHeight + 100;
@@ -224,7 +225,7 @@ export function animate(timestamp) {
 }
 
 function thePlatformTheStickHits() {
-  const lastStick = sticks[sticks.length - 1];
+  const lastStick = state.sticks[state.sticks.length - 1];
   const stickFarX = lastStick.x + lastStick.length;
 
   const platformTheStickHits = state.platforms.find(
