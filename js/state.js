@@ -11,12 +11,15 @@ export const state = {
   sticks: [],
 
   score: 0,
+  indexReducer: 0,
 };
 
 // Configuration
 const canvas = document.getElementById("game");
 export const ctx = canvas.getContext("2d");
-export const canvasWidth = window.innerWidth;
+export const instructions = document.getElementById("instructions");
+export const canvasWidth =
+  window.innerWidth > 800 ? window.innerWidth - 100 : window.innerWidth;
 export const canvasHeight = window.innerHeight;
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
@@ -35,5 +38,5 @@ export const walkingSpeed = 4;
 export const transitioningSpeed = 2;
 export const fallingSpeed = 3;
 
-export const restartButton = document.getElementById("restart");
-export const scoreElement = document.getElementById("score");
+// set how many points in a row player can get for set of platforms skipped (def to 3)
+export const maxPoints = 3;

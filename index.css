@@ -2,6 +2,8 @@ html,
 body {
   height: 100%;
   margin: 0;
+  background-color: darkslateblue;
+  cursor: pointer;
 }
 
 body,
@@ -15,21 +17,48 @@ body,
 .container {
   position: relative;
   font-family: Helvetica;
+  background-color: white;
 }
 
 canvas {
   border: 1px solid;
 }
 
-#score {
+.score {
   position: absolute;
   top: 30px;
   right: 30px;
-  font-size: 2em;
-  font-weight: 900;
+  font-size: 3rem;
+  font-weight: 600;
 }
 
 #restart {
   position: absolute;
   display: none;
+  padding: 2rem 5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: red;
+  border: none;
+  border-radius: 15px;
+  color: white;
+
+  :hover {
+    background-color: darkred;
+  }
+}
+
+#instructions {
+  min-width: 300px;
+  width: 50%;
+  height: auto;
+  position: absolute;
+  font-weight: 500;
+  font-size: 1.8em;
+  font-family: sans-serif;
+  text-align: center;
+  transition: opacity 2s;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
 }

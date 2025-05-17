@@ -1,6 +1,7 @@
-import { state, scoreElement, restartButton } from "./js/state.js";
-import { resetGame, animate } from "./js/functions.js";
-
+import { state } from "./js/state.js";
+import { animate } from "./js/phases.js";
+import resetGame from "./js/reset.js";
+export const restartButton = document.getElementById("restart");
 resetGame();
 
 window.addEventListener("mousedown", function () {

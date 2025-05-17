@@ -9,7 +9,11 @@
   <body>
     <div class="container">
       <canvas id="game" width="375" height="375"></canvas>
-      <div id="score"></div>
+      <div id="instructions" style="opacity: 1">
+        Hold the mouse button to stretch out a stick. You can skip up to
+        <span id="maxPlatforms"></span> platforms to get more points!
+      </div>
+      <div class="score">SCORE: <span id="score"></span></div>
       <button id="restart">RESTART</button>
     </div>
   </body>
